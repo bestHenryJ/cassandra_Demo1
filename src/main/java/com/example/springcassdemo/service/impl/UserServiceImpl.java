@@ -22,6 +22,13 @@ public class UserServiceImpl implements UserService {
     public UserServiceImpl(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
+
+    @Override
+    public void deleteUser(int id) {
+        User user = userRepository.findById(id).orElseThrow(() -> new RuntimeException("error"));
+        userRepository.deleteById(user.getId());
+    }
+
     @PostConstruct
     public void initialSave() {
         List<User> users = new ArrayList<>();
